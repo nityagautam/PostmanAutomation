@@ -2,6 +2,16 @@
 # This contains the config variables
 #
 
+# ===========================================
+# Avaialble mode : single | combined | mixed
+collections_setup = {
+    "mode": 'single',
+    "variables_locations": 'PATH_TO_ENV_JSON_FOR_EACH'
+    "data_files": 'bind_with_ENV'
+}
+
+# ===========================================
+
 # Collection order
 sanity_collections = []
 regreession_collections = []
