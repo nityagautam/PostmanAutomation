@@ -13,7 +13,12 @@ collections_setup = {
 # ===========================================
 
 # Collection order
-sanity_collections = []
+sanity_collections = [
+    "collection_file1.json",
+    "collection_file2.json",
+    "collection_filek.json",
+    "collection_filen.json"
+]
 regreession_collections = []
 
 # data files
