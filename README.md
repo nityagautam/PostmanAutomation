@@ -1,8 +1,8 @@
-# PostmanAutomation
+# Postman Automation
 Automating the postman using the newman
 
-# Architecture
-- Goees here
+## Architecture
+- Goes here
 
 ## Folder Structure
-![Automation folder structure](./PostmanAutomationSolution.drawio.png?raw=true "Automation Frameework Structure")
+![Automation folder structure](../_dump/PostmanAutomationSolution.drawio.png?raw=true "Automation Framework Structure")

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Air Quality" tests="2" time="1.614">
+  <testsuite name="Get Air Quality Status" id="8c302080-4379-4fcc-8b81-47cfd4b5be16" timestamp="2022-06-30T04:19:37.431Z" tests="2" failures="2" errors="2" time="0.859">
+    <system-err><![CDATA[Iteration: 0
+
+---
+testScriptError: Error response from API.
+---
+prerequestScriptError: AssertionError: expected {} to have keys 'location', 'accuweatherApiKey', 'twitterConsumerKey', 'twitterConsumerSecret', 'twitterAccessToken', and 'twitterAccessTokenSecret'
+    at Object.eval (eval at exec (evalmachine.<anonymous>:58:1788403), <anonymous>:6:38)
+    at u.exec (evalmachine.<anonymous>:58:1788438)
+    at t.exports (evalmachine.<anonymous>:58:5743)
+    at Object.<anonymous> (evalmachine.<anonymous>:58:7440)
+    at evalmachine.<anonymous>:15:26
+    at Array.forEach (<anonymous>)
+    at Object.emit (evalmachine.<anonymous>:14:54)
+    at evalmachine.<anonymous>:51:24
+    at evalmachine.<anonymous>:5:21
+    at evalmachine.<anonymous>:6:18
+---
+]]></system-err>
+    <testcase name="Status code is OK" time="0.859" classname="AirQuality">
+      <failure type="AssertionFailure" message="expected response to have status reason 'OK' but got 'UNAUTHORIZED'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: bfba53f7-0239-4f63-803b-c84f3cf1668d.]]>
+        <![CDATA[Collection name: Air Quality.]]>
+        <![CDATA[Request name: Get Air Quality Status.]]>
+        <![CDATA[Test description: Status code is OK.]]>
+        <![CDATA[Error message: expected response to have status reason 'OK' but got 'UNAUTHORIZED'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status reason 'OK' but got 'UNAUTHORIZED'
+   at Object.eval sandbox-script.js:1:1).]]>
+      </failure>
+    </testcase>
+    <testcase name="Response has forecast data" time="0.859" classname="AirQuality">
+      <failure type="AssertionFailure" message="expected { Object (Code, Message, ...) } to have property 'DailyForecasts'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: bfba53f7-0239-4f63-803b-c84f3cf1668d.]]>
+        <![CDATA[Collection name: Air Quality.]]>
+        <![CDATA[Request name: Get Air Quality Status.]]>
+        <![CDATA[Test description: Response has forecast data.]]>
+        <![CDATA[Error message: expected { Object (Code, Message, ...) } to have property 'DailyForecasts'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected { Object (Code, Message, ...) } to have property 'DailyForecasts'
+   at Object.eval sandbox-script.js:2:1).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Post Air Quality Status to Twitter" id="0f0e5642-af31-4f75-a581-09952d55683c" timestamp="2022-06-30T04:19:37.431Z" tests="1" failures="1" errors="0" time="0.755">
+    <testcase name="Status code is OK" time="0.755" classname="AirQuality">
+      <failure type="AssertionFailure" message="expected response to have status reason 'OK' but got 'UNAUTHORIZED'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: bfba53f7-0239-4f63-803b-c84f3cf1668d.]]>
+        <![CDATA[Collection name: Air Quality.]]>
+        <![CDATA[Request name: Post Air Quality Status to Twitter.]]>
+        <![CDATA[Test description: Status code is OK.]]>
+        <![CDATA[Error message: expected response to have status reason 'OK' but got 'UNAUTHORIZED'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status reason 'OK' but got 'UNAUTHORIZED'
+   at Object.eval sandbox-script.js:1:2).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>
