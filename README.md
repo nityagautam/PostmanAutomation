@@ -5,4 +5,4 @@ Automating the postman using the newman
 - Goes here
 
 ## Folder Structure
-![Automation folder structure](../_dump/PostmanAutomationSolution.drawio.png?raw=true "Automation Framework Structure")
+![Automation folder structure](./_dump/PostmanAutomationSolution.drawio.png?raw=true "Automation Framework Structure")
