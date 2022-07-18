@@ -1,0 +1,1144 @@
+{
+	"info": {
+		"_postman_id": "8d560bdf-4348-41a9-9328-e3053b401b4b",
+		"name": "For Automation Mock Sanity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19930652"
+	},
+	"item": [
+		{
+			"name": "get-countries",
+			"item": [
+				{
+					"name": "getCountries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bankingServices/rest/customer/getCountries",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bankingServices",
+								"rest",
+								"customer",
+								"getCountries"
+							]
+						},
+						"description": "Use this API to get a list of all countries."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create-user",
+			"item": [
+				{
+					"name": "createUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get utilties\r",
+									"let utils = getUtils(pm);\r",
+									"\r",
+									"// if call was successful, set customerToken & add response data to collection.\r",
+									"utils.response.onSuccess(() => {\r",
+									"    pm.environment.set(\"customerToken\", pm.response.headers.get(\"customerToken\"));\r",
+									"})\r",
+									"\r",
+									"utils.response.set({\r",
+									"    responseType: \"CustomerOnboardingResponse\",\r",
+									"    addFields: {}\r",
+									"});\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2.5s\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let utils = getUtils(pm);\r",
+									"\r",
+									"// Generate random user information and pass it as a local object.\r",
+									"utils.locals.set(\"userInfo\", utils.random.identities.generateUserInfo());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userInfo.userName}}\", \r\n  \"password\": \"pass123\",\r\n  \"party_Person\": {\r\n        \"firstName\": \"{{userInfo.firstName}}\", \r\n        \"lastName\": \"{{userInfo.lastName}}\", \r\n        \"tinType\": 0,\r\n        //unique TIN will be required in future releases\r\n        \"tin\": \"{{userInfo.tin}}\",  \r\n        \"birthDate\":\"{{userInfo.birthDate}}\",\r\n         \"emails\": [\r\n            {\r\n                \"emailType\": 1,\r\n                //unique email will be required in future releases\r\n                \"data\": \"{{userInfo.email}}\",  \r\n                //only one email where isPreferred = true will be allowed in future releases\r\n                \"isPreferred\": true \r\n            }\r\n        ],\r\n        \"phones\": [\r\n            {\r\n                \"phoneType\": 2,\r\n                \"data\": \"{{userInfo.phoneNumber}}\",\r\n                 //only one phone where isPreferred = true will be allowed in future releases\r\n                \"isPreferred\": true\r\n            }\r\n        ]\r\n    },\r\n    \"addresses\": [\r\n        {\r\n            \"addrType\": 1,\r\n            \"label\": \"Main Office\",\r\n            \"city\": \"Malvern\",\r\n            \"cntry\": \"US\",\r\n            \"postCode\": \"19355\",\r\n            \"region\": \"PA\",\r\n            \"street\": \"50 Valley Stream Pkwy\",\r\n            \"isTaxAddr\": true, \r\n            //only one address where isPreferred = true will be allowed in future releases\r\n            \"isPreferred\": true,\r\n            \"adrTypeEntry\": \"string\",\r\n            \"isCurrNotEmpty\": true\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bankingServices/rest/identity/createUser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bankingServices",
+								"rest",
+								"identity",
+								"createUser"
+							]
+						},
+						"description": "Use this API to create a new user. An email, password, first and last name are required."
+					},
+					"response": [
+						{
+							"name": "Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{accessToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userName\": \"carduser\",\r\n  \"password\": \"pass123\",\r\n  \"party_Person\": {\r\n        \"firstName\": \"card\",\r\n        \"lastName\": \"User\",\r\n        \"tinType\": 0,\r\n        \"tin\": \"192192200\",\r\n        \"emails\": [\r\n            {\r\n                \"emailType\": 1,\r\n                \"data\": \"carduser@gmail.com\",\r\n                \"isPreferred\": true\r\n            }\r\n        ],\r\n        \"phones\": [\r\n            {\r\n                \"phoneType\": 2,\r\n                \"data\": \"+11234567890\",\r\n                \"isPreferred\": true\r\n            }\r\n        ]\r\n        },\r\n        \r\n          \"addresses\": [\r\n            {\r\n                \"addrType\": 1,\r\n                \"label\": \"Main Office\",\r\n                \"city\": \"Malvern\",\r\n                \"cntry\": \"US\",\r\n                \"postCode\": \"19355\",\r\n                \"region\": \"PA\",\r\n                \"street\": \"500 Sesame street\",\r\n                \"street2\": \"Highway\",\r\n                \"isTaxAddr\": true,\r\n                \"isPreferred\": true,\r\n                \"adrTypeEntry\": \"string\",\r\n                \"isCurrNotEmpty\": true\r\n            },\r\n            {\r\n                \"addrType\": 1,\r\n                \"label\": \"Side Office\",\r\n                \"city\": \"Malvern\",\r\n                \"cntry\": \"US\",\r\n                \"postCode\": \"19355\",\r\n                \"region\": \"PA\",\r\n                \"street\": \"600 Sesame street\",\r\n                \"street2\": \"Highway\",\r\n                \"isTaxAddr\": false,\r\n                \"isPreferred\": false,\r\n                \"adrTypeEntry\": \"string\",\r\n                \"isCurrNotEmpty\": true\r\n            }\r\n          ],\r\n          \"partyNotifPref\":{\r\n      \"smsOptInStatus\":false,\r\n      \"smsDfltChannel\": true\r\n  }        \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bankingServices/rest/identity/createUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bankingServices",
+										"rest",
+										"identity",
+										"createUser"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 09:05:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "-1"
+								},
+								{
+									"key": "customerToken",
+									"value": "VTS4/j6q7zDEzc60qycUplsV7x/MT+0rtyQT1nXJTueCLuLP7KVV8BItBcr3SalV2I/6Xld7C9Rv4DMts0rviA=="
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "object-src 'self'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"applicationId\": \"364cbf80-420f-4c9f-b5af-6205d9898d70\",\n    \"customer\": {\n        \"customerGroup\": \"1\",\n        \"customerId\": \"707a9de5-791a-40eb-bf05-fd4216253ca1\",\n        \"domainName\": \"consumer\",\n        \"loginId\": \"carduser\",\n        \"partyId\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n        \"startDtm\": \"2022-01-06T09:05:32Z\"\n    },\n    \"party_person\": {\n        \"_attch\": \"partyUSBankInfo|\",\n        \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n        \"_class\": \"party_person\",\n        \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n        \"_uDtm\": \"2022-01-06T09:05:32.9596871Z\",\n        \"_uLog\": \"4gTY6AZOFTH_ZV---FLF-Bg-\",\n        \"addrs\": [\n            {\n                \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n                \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n                \"_Ix\": 0,\n                \"addrId\": \"4fkLEGrfdNvFO----0TF--o-\",\n                \"addrType\": 1,\n                \"label\": \"Main Office\",\n                \"isPreferred\": true,\n                \"_uDtm\": \"2022-01-06T09:05:32.9596871Z\"\n            },\n            {\n                \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n                \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n                \"_Ix\": 1,\n                \"addrId\": \"4g5W_DNInptJZV---2eF--o-\",\n                \"addrType\": 1,\n                \"label\": \"Side Office\",\n                \"_uDtm\": \"2022-01-06T09:05:32.9596871Z\"\n            }\n        ],\n        \"emails\": [\n            {\n                \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n                \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n                \"_Ix\": 0,\n                \"data\": \"carduser@gmail.com\",\n                \"emailType\": 1,\n                \"isPreferred\": true\n            }\n        ],\n        \"firstName\": \"card\",\n        \"lastName\": \"User\",\n        \"name\": \"card User\",\n        \"partyUSBankInfo\": {\n            \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n            \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n            \"_uDtm\": \"2022-01-06T09:05:32.9596871Z\",\n            \"_uLog\": \"4gTY6AZOFTH_ZV---kLF-Kg-\",\n            \"isElectronicStmt\": true,\n            \"_cLogRef\": \"4gTY6AZIc9eHv-----LF----\",\n            \"isElectronicBill\": true\n        },\n        \"phones\": [\n            {\n                \"_cDtm\": \"2022-01-06T09:05:32.9596871Z\",\n                \"_Id\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n                \"_Ix\": 0,\n                \"data\": \"+11234567890\",\n                \"isPreferred\": true,\n                \"phoneType\": 2\n            }\n        ],\n        \"taxAddressId\": \"4fkLEGrfdNvFO----0TF--o-\",\n        \"tin\": \"192192200\",\n        \"_cLogRef\": \"4gTY6AZIc9eHv-----LF----\",\n        \"lstContactDate\": \"2022-01-06\"\n    },\n    \"addresses\": [\n        {\n            \"_Ix\": 0,\n            \"addrId\": \"4fkLEGrfdNvFO----0TF--o-\",\n            \"addrType\": 1,\n            \"city\": \"Malvern\",\n            \"cntry\": \"US\",\n            \"label\": \"Main Office\",\n            \"postCode\": \"19355\",\n            \"region\": \"PA\",\n            \"street\": \"500 Sesame street\",\n            \"street2\": \"Highway\",\n            \"isTaxAddr\": true,\n            \"isPreferred\": true\n        },\n        {\n            \"_Ix\": 1,\n            \"addrId\": \"4g5W_DNInptJZV---2eF--o-\",\n            \"addrType\": 1,\n            \"city\": \"Malvern\",\n            \"cntry\": \"US\",\n            \"label\": \"Side Office\",\n            \"postCode\": \"19355\",\n            \"region\": \"PA\",\n            \"street\": \"600 Sesame street\",\n            \"street2\": \"Highway\"\n        }\n    ],\n    \"onboardingCase\": {\n        \"caseId\": \"1030298\",\n        \"caseDetails\": {\n            \"customerGroup\": \"1\",\n            \"customerId\": \"707a9de5-791a-40eb-bf05-fd4216253ca1\",\n            \"domainName\": \"consumer\",\n            \"loginId\": \"carduser\",\n            \"memberId\": \"707a9de5-791a-40eb-bf05-fd4216253ca1\",\n            \"partyGroupId\": \"1\",\n            \"partyId\": \"4gTY6AZOFTH_ZV----LF-Bg-\",\n            \"startDtm\": \"2022-01-06T00:00:00Z\",\n            \"firstName\": \"card\",\n            \"lastName\": \"User\",\n            \"status\": \"3\",\n            \"kycStatus\": \"0\"\n        }\n    },\n    \"partyNotifPref\": {\n        \"smsDfltChannel\": true,\n        \"emailDfltChannel\": true\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let utils = getUtils(pm);\r",
+							"\r",
+							"utils.response.onSuccess(() => {\r",
+							"    pm.environment.set(\"accessToken\", utils.response.get().accessToken);\r",
+							"    pm.environment.set(\"refreshToken\", utils.response.get().refreshToken);\r",
+							"})\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{bsa_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{bsa_clientId}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grantType\": \"client_credentials\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/bankingServices/rest/oauth2/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bankingServices",
+						"rest",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let utils = getUtils(pm);\r",
+							"\r",
+							"// if call was successful, set customerToken\r",
+							"utils.response.onSuccess(() => {\r",
+							"    pm.environment.set(\"customerToken\", pm.response.headers.get(\"customerToken\"));\r",
+							"})\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 15000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(15000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get Utilities\r",
+							"let utils = getUtils(pm);\r",
+							"\r",
+							"// Get Most Recent User Information if there is any.\r",
+							"// If there is, set userInfo object as a local for use in the body.\r",
+							"utils.collectionToLocal.pass(\"CustomerOnboardingResponse\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{accessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "customerToken",
+						"value": "{{customerToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"{{CustomerOnboardingResponse.customer.loginId}}\", //required\r\n    \"password\": \"pass123\" //required\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/bankingServices/rest/identity/loginUser",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bankingServices",
+						"rest",
+						"identity",
+						"loginUser"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "customerToken",
+								"value": "{{customerToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"Jefferey.Huel@yopmail.com\", //required\r\n    \"password\": \"pass123\" //required\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bankingServices/rest/identity/loginUser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bankingServices",
+								"rest",
+								"identity",
+								"loginUser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 17:41:33 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "customerToken",
+							"value": "g14Ol8McFmrd8RY3+HWxlu4xqYRpD91gRCPxp2YeMHoqBdMObUoQe3uzp/ZIus6aJX+wftDqY7XHiTZXdkAymg=="
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "object-src 'self'"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "getCountrySubdivisions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/bankingServices/rest/customer/getCountrySubdivisions/US",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"bankingServices",
+						"rest",
+						"customer",
+						"getCountrySubdivisions",
+						"US"
+					]
+				},
+				"description": "Use this API to get a list of all available selections for subdivisions or regions of a country."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// This closure provides various functionallities to better avoid",
+					"// code reuse and code duplication. These tools provide the ability",
+					"// to set variables, get variable values, set object values, generate",
+					"// random data. ",
+					"//",
+					"// For more information see: https://savana.atlassian.net/wiki/spaces/CS/pages/2369716388/Postman+Scripting+Variables",
+					"//",
+					"// Please note that you must pass in the pmInstance.",
+					"// Note that optional showDebugMessages.",
+					"getUtils = function(pmInstance, showDebugMessages) {",
+					"    if(!pmInstance) {",
+					"        throw Error(\"pm instance not passed to function.\");",
+					"    }",
+					"",
+					"    function log(message) {",
+					"        if(showDebugMessages) {",
+					"            console.log(message);",
+					"        }",
+					"    }",
+					"",
+					"    log(\"\");",
+					"    log(\"------------------------------------------------------\");",
+					"    log(\"-- utils started. logs enabled.                     --\");",
+					"    log(\"------------------------------------------------------\");",
+					"",
+					"    // these defined functions provide tools in order to",
+					"    // set local variables before a request, those set variables",
+					"    // are able to be pulled into the body. And after the request",
+					"    // you are able to use these functions to get this data as well.",
+					"    // These functions are not meant to be used across requests.",
+					"    function locals() {",
+					"",
+					"",
+					"        // This function will set a local variable in postman.",
+					"        // The varaibleValue must not be an object. ",
+					"        // The setVaraible can then be used in the body of the",
+					"        // request.",
+					"        function set(variableName, variableValue) {",
+					"            if(typeof variableValue === \"undefined\" || typeof variableValue === \"null\") {",
+					"                log(`objectValue is null or undefined. ${variableName} not set.`);",
+					"                return;",
+					"            }",
+					"            if(typeof variableValue === \"object\") {",
+					"                setObject(variableName, variableValue);",
+					"                return;",
+					"            }",
+					"            log(`Setting local variable '${variableName} : '${variableValue}'.`);",
+					"            pmInstance.variables.set(variableName, variableValue);",
+					"        };",
+					"",
+					"        // This function allows for setting a local object as a local",
+					"        // variable. This allows for the object's values to be used in",
+					"        // the body of the request. Note that the format is ",
+					"        // (object).(property). Ex. \"{{userInfo.firstName}}\"",
+					"        function setObject(objectName, objectValue) {",
+					"            if(typeof objectValue === \"undefined\" || typeof objectValue === \"null\") {",
+					"                log(`objectValue is null or undefined. ${objectName} not set.`);",
+					"                return;",
+					"            }",
+					"            log(`Setting object '${objectName}' with value ${JSON.stringify(objectValue)}`);",
+					"            let writeObjectAsJsonLocal = function(objectName, objectValue) {",
+					"                set(objectName, JSON.stringify(objectValue));",
+					"            };",
+					"            let writeObjectsPropertiesAsLocals = function(objectName, objectValue) {",
+					"                for(const propertyName in objectValue) {",
+					"                    set(`${objectName}.${propertyName}`, objectValue[propertyName]);",
+					"                }",
+					"            };",
+					"            let writeArrayProperties = function(objectName, objectValue) {",
+					"                if(Array.isArray(objectValue) === false) {",
+					"                    return;",
+					"                }",
+					"                if(objectValue.length > 0) {",
+					"                    // set a last field for arrays",
+					"                    let lastValueInArray = objectValue[objectValue.length-1];",
+					"                    set(`${objectName}.last`, lastValueInArray);",
+					"                    // set a random field for arrays",
+					"                    let randomValueInArray = random().oneOf(objectValue);",
+					"                    set(`${objectName}.random`, randomValueInArray);",
+					"                }",
+					"            }",
+					"            writeObjectAsJsonLocal(objectName, objectValue);",
+					"            writeObjectsPropertiesAsLocals(objectName, objectValue);",
+					"            writeArrayProperties(objectName, objectValue);",
+					"        };",
+					"",
+					"        // THis function allows for receving a set local non-object",
+					"        // variable.",
+					"        function get(variableName) {            ",
+					"            if(pmInstance.variables.has(variableName) === false) {",
+					"                return undefined;",
+					"            }",
+					"            let value = pmInstance.variables.get(variableName);",
+					"            try {",
+					"                return JSON.parse(value);",
+					"            } catch {",
+					"                return value;",
+					"            }",
+					"        };",
+					"",
+					"        return {",
+					"            set : set,",
+					"            get : get",
+					"        };",
+					"    }",
+					"",
+					"    // This closure provides tools in order to set collection variables ",
+					"    // before and after a request. These variables cannot be used in a ",
+					"    // body. Instead these variables are to be used to across a ",
+					"    // collection.",
+					"    function collection() {",
+					"",
+					"        let getDataKey = function(key) {",
+					"            return `utils.collection.${key}`;",
+					"        }",
+					"",
+					"        let getLastAddedPropertyOf = function(obj) {",
+					"            return obj[Object.keys(obj)[Object.keys(obj).length - 1]];",
+					"        }",
+					"        let readData = function(key) {",
+					"            let dataKey = getDataKey(key);",
+					"            if(pmInstance.collectionVariables.has(dataKey))",
+					"            {",
+					"                try {",
+					"                    return JSON.parse(pmInstance.collectionVariables.get(dataKey));",
+					"                } catch {",
+					"                    log(`Failed to parse stored data for '${dataKey}'`);",
+					"                 }",
+					"            }",
+					"            log(`Did not find any stored data for '${dataKey}'`);",
+					"            return { };",
+					"        }",
+					"        let writeData = function(key, data) {",
+					"            let dataKey = getDataKey(key);",
+					"            log(`writing data to collection: ${dataKey} : ${JSON.stringify(data)}`);",
+					"            pmInstance.collectionVariables.set(dataKey, JSON.stringify(data));",
+					"        }",
+					"",
+					"        let writeValue = function(key, value) {",
+					"            if(typeof value === \"object\") {",
+					"                log(`cannot write '${key}' as it is an object value. (${JSON.stringify(value)})'`);",
+					"                return;",
+					"            }",
+					"            log(`writing value to collection: ${key} : ${value}`);",
+					"            pmInstance.collectionVariables.set(key, value);",
+					"        }",
+					"",
+					"        // This function will return either getMostRecent ",
+					"        // or getSpecific",
+					"        // based on the number of variables passed into it. ",
+					"        // If only the key, it will return the result ",
+					"        // of getMostRecent(key)",
+					"        // If the varaibleName & the endpointName, it will return",
+					"        // the result of getSpecific(key, endpoint)",
+					"        function get(key, endpoint) {",
+					"            if(!key)",
+					"            {",
+					"                throw Error(\"key must be passed into utils.collection.get\");",
+					"            }",
+					"            if(endpoint) {",
+					"                return getSpecific(key, endpoint);",
+					"            } else {",
+					"                return getMostRecent(key);",
+					"            }",
+					"        }",
+					"",
+					"        // This function will return the most recently set variable",
+					"        // based on the key.",
+					"        let getMostRecent = function(key) {",
+					"            let data = readData(key);",
+					"            return getLastAddedPropertyOf(data);",
+					"        }",
+					"",
+					"        // This function will return a specific set variable based ",
+					"        // both on the key and the endpoint specified.",
+					"        let getSpecific = function(key, endpoint) {",
+					"            let data = readData(key);",
+					"            if(endpoint in data === false) {",
+					"                log(`endpoint '${endpoint}' not found for key '${key}'`)",
+					"                return undefined;",
+					"            }",
+					"            return data[endpoint];",
+					"        }",
+					"",
+					"        // This function will set a varaible with the specified key",
+					"        // and with the specified value.",
+					"        function set(key, value) {",
+					"            let endpoint = request().getEndpoint();",
+					"            let data = readData(key);",
+					"            if(endpoint in data) {",
+					"                log(`endpoint '${endpoint}' already had previous value. overwriting.'`);",
+					"                delete data[endpoint];",
+					"            }",
+					"            data[endpoint] = value;",
+					"            writeData(key, data);",
+					"            writeValue(key, value);",
+					"        }",
+					"",
+					"        // This function allows for adding additional values of an stored",
+					"        // array variable. If the array has not been created yet, it will",
+					"        // start the array first.",
+					"        function push(key, value) {",
+					"            let data = get(key);",
+					"            if(!data) {",
+					"                data = [];",
+					"            }",
+					"            data.push(value);",
+					"            set(key, data);",
+					"        }",
+					"",
+					"        // this function removes all stored variables of the specified",
+					"        // key. ",
+					"        function remove(key) {",
+					"            let dataKey = getDataKey(key);",
+					"            pm.collectionVariables.unset(dataKey);",
+					"        }",
+					"",
+					"        // this function determines if the variable is set. ",
+					"        function has(key, endpoint) {",
+					"            if(!get(key, endpoint)) {",
+					"                return false;",
+					"            }",
+					"            return true;",
+					"        }",
+					"",
+					"        return {",
+					"            get : get,",
+					"            set: set,",
+					"            push: push,",
+					"            remove: remove,",
+					"            has: has",
+					"        };",
+					"    }",
+					"",
+					"    // This is deprecated, once all references to it are removed, this should be removed. ",
+					"    function helpers() {",
+					"",
+					"        return { ",
+					"            isSuccess : response().isSuccess, // deprecated",
+					"            isFailure : response().isFailure, // deprecated",
+					"            getEndpointTail : request().getUriTail //deprecated",
+					"        };",
+					"    }",
+					"",
+					"    // This clsure provides miscallenous functionallity dealing with random",
+					"    // values. ",
+					"    function random() {",
+					"",
+					"        function getDynamic(variableName) { ",
+					"            return pmInstance.variables.replaceIn(`{{$${variableName}}}`);",
+					"        }",
+					"",
+					"        // This function takes in an array and returns a single random",
+					"        // element within that array. ",
+					"        function oneOf(arrayObject) {",
+					"            if(Array.isArray(arrayObject) === false) {",
+					"                throw Error(\"Cannot pass non-array object into one Of\");",
+					"            }",
+					"            let randomIndex = Math.floor(Math.random()*arrayObject.length);",
+					"            return arrayObject[randomIndex];",
+					"        }",
+					"",
+					"        function generateFirstName() {",
+					"            return stripQuotes(getDynamic(\"randomFirstName\"));",
+					"        }",
+					"",
+					"        function generateLastName() {",
+					"            return stripQuotes(getDynamic(\"randomLastName\"));",
+					"        }",
+					"",
+					"        function generateFullName(firstName, lastName) {",
+					"            if(!firstName || !lastName) {",
+					"                firstName = generateFirstName();",
+					"                lastName = generateLastName();",
+					"            }",
+					"            return `${firstName} ${lastName}`;",
+					"        }",
+					"",
+					"        function generateNumberByDigits(digits) {",
+					"            let min = Math.pow(10, digits-1);",
+					"            let value = 9 * Math.pow(10, digits-1);",
+					"            return Math.floor(min + Math.random() * value);",
+					"        }",
+					"",
+					"        function stripQuotes(str) { ",
+					"            return str.replace(/['\"]+/g, '');",
+					"        }",
+					"",
+					"        function generateBirthDate() {",
+					"            const randomDate = (start, end) => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+					"            const zeroPad = (num, places) => String(num).padStart(places, '0')",
+					"            var date = randomDate(new Date(2000, 0, 1), new Date());",
+					"            var year_last_integer = generateNumberByDigits(1);",
+					"            return '199' + year_last_integer + '-' + zeroPad((date.getMonth() + 1),2) + '-' + zeroPad(date.getDate(),2);",
+					"        }",
+					"",
+					"        function generateTin() {",
+					"            return generateNumberByDigits(9);",
+					"        }",
+					"",
+					"        function generatePhoneNumber() {",
+					"            return `+1${generateNumberByDigits(10)}`;",
+					"        }",
+					"",
+					"        function generateEmail(firstName, lastName) {",
+					"            return `${firstName ? firstName : generateFirstName()}.${lastName ? lastName : generateLastName()}@yopmail.com`;",
+					"        }",
+					"",
+					"        function identities() { ",
+					"            function generateIdentity() {",
+					"                let firstName = generateFirstName();",
+					"                let lastName = generateLastName();",
+					"                let fullName = generateFullName(firstName, lastName);",
+					"                let birthDate = generateBirthDate();",
+					"                let tin = generateTin();",
+					"                let email = generateEmail(firstName, lastName);",
+					"                let phoneNumber = generatePhoneNumber();",
+					"",
+					"                return { ",
+					"                    firstName: firstName, ",
+					"                    lastName: lastName, ",
+					"                    fullName: fullName,",
+					"                    birthDate: birthDate,",
+					"                    tin: tin,",
+					"                    email: email,",
+					"                    phoneNumber: phoneNumber",
+					"                };",
+					"            }",
+					"",
+					"            // This function generates a random set of user information.",
+					"            function generateUserInfo() {",
+					"                let identity = generateIdentity();",
+					"                return { ",
+					"                    firstName: identity.firstName, ",
+					"                    lastName: identity.lastName, ",
+					"                    fullName: identity.fullName,",
+					"                    birthDate: identity.birthDate,",
+					"                    tin: identity.tin,",
+					"                    email: identity.email,",
+					"                    userName: identity.email,",
+					"                    phoneNumber: identity.phoneNumber",
+					"                };",
+					"            }",
+					"",
+					"            function generateOrgInfo() {",
+					"                let identity = generateIdentity();",
+					"                let name = `${identity.lastName} Inc`;",
+					"                return {",
+					"                    name: name,",
+					"                    tin: identity.tin,",
+					"                    email: identity.email,",
+					"                    phoneNumber: identity.phoneNumber",
+					"                };",
+					"",
+					"            }",
+					"",
+					"            function generateLinkedAccount() { ",
+					"                let accountNumber = generateNumberByDigits(9);",
+					"                let accountTitle = `${getDynamic(\"randomJobTitle\")} Services`;",
+					"                return {",
+					"                    accountNumber : accountNumber,",
+					"                    accountTitle : accountTitle",
+					"                };",
+					"            }",
+					"",
+					"            return {",
+					"                generateIdentity : generateIdentity,",
+					"                generateUserInfo : generateUserInfo,",
+					"                generateOrgInfo : generateOrgInfo,",
+					"                generateLinkedAccount : generateLinkedAccount",
+					"            };",
+					"        }",
+					"",
+					"        return {",
+					"            oneOf : oneOf,",
+					"            identities : identities(),",
+					"            generateBirthDate: generateBirthDate,",
+					"            generateFirstName: generateFirstName,",
+					"            generateLastName: generateLastName,",
+					"            generateFullName: generateFullName,",
+					"            generateEmail: generateEmail,",
+					"            generateTin: generateTin,",
+					"            generatePhoneNumber: generatePhoneNumber",
+					"        };",
+					"    }",
+					"",
+					"    function response() {",
+					"",
+					"        function onSuccess(func) {",
+					"            if(isSuccess()) {",
+					"                func();",
+					"            }",
+					"        }",
+					"",
+					"        function isSuccess() {",
+					"            return pmInstance.response.code.toString()[0] === \"2\";",
+					"        }",
+					"",
+					"        function isFailure() {",
+					"            return isSuccess() === false;",
+					"        }",
+					"",
+					"        function get() {",
+					"            if(isFailure()) {",
+					"                throw new Error(\"Cannot get response if failed.\");",
+					"            }",
+					"            return pmInstance.response.json();",
+					"        }",
+					"",
+					"        let addFieldsToResponse = function(response, fields) {",
+					"            let output = response;",
+					"            for(const propertyName in fields) {",
+					"                let propertyValue = fields[propertyName];",
+					"                output[propertyName] = propertyValue;",
+					"            }",
+					"            return output;",
+					"        }",
+					"",
+					"        function set({responseType, addFields}) {",
+					"            if(isFailure()) {",
+					"                return;",
+					"            }",
+					"            let response = get();",
+					"            if(addFields) {",
+					"                response = addFieldsToResponse(response, addFields);",
+					"            }",
+					"            collection().set(responseType, response);",
+					"        }",
+					"",
+					"        function push({responseType, addFields}) {",
+					"            if(isFailure()) {",
+					"                return;",
+					"            }",
+					"            let response = get();",
+					"            if(addFields) {",
+					"                response = addFieldsToResponse(response, addFields);",
+					"            }",
+					"            collection().push(responseType, response);",
+					"        }",
+					"",
+					"        return {",
+					"            get: get,",
+					"            set: set,",
+					"            push: push,",
+					"            isSuccess: isSuccess,",
+					"            isFailure: isFailure,",
+					"            onSuccess: onSuccess",
+					"        };",
+					"    }",
+					"",
+					"    function request() {",
+					"        // taken from https://stackoverflow.com/questions/67493034/how-to-add-comments-in-postman-json-body-for-collection-level-pre-request-scrip/67493035#67493035",
+					"        let stripCommentsFromJson = function(rawData) {",
+					"            const strippedData = rawData.replace(",
+					"                /\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g,",
+					"                (m, g) => g ? \"\" : m",
+					"            );",
+					"            return strippedData;",
+					"        }",
+					"",
+					"        function get(){",
+					"            let requestBody = pmInstance.request.body.toString();",
+					"            return JSON.parse(stripCommentsFromJson(requestBody));",
+					"        }",
+					"",
+					"        function getUriTail() {",
+					"            let urlPath = pmInstance.request.url.path;",
+					"            let endPointIndex = urlPath.indexOf(pmInstance.info.requestName);",
+					"            return urlPath[endPointIndex+1];",
+					"        }",
+					"",
+					"        function getEndpoint() {",
+					"            let urlPath = pmInstance.request.url.path;",
+					"            let endPointIndex = urlPath.indexOf(pmInstance.info.requestName);",
+					"            return `${urlPath[endPointIndex-1]}/${urlPath[endPointIndex]}`;",
+					"        }",
+					"",
+					"        return {",
+					"            get: get,",
+					"            getUriTail: getUriTail,",
+					"            getEndpoint: getEndpoint",
+					"        };",
+					"    }",
+					"",
+					"    function collectionToLocal() {",
+					"        function pass(key, value) {",
+					"            if(collection().has(key, value)) {",
+					"                locals().set(key, collection().get(key, value));",
+					"            }",
+					"        }",
+					"",
+					"        return {",
+					"            pass: pass",
+					"        };",
+					"    }",
+					"",
+					"    ",
+					"",
+					"    return {",
+					"        locals : locals(),",
+					"        collection : collection(),",
+					"        helpers : helpers(),",
+					"        random : random(),",
+					"        response: response(),",
+					"        request: request(),",
+					"        collectionToLocal: collectionToLocal()",
+					"    };",
+					"};"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "utils.collection.CustomerOnboardingResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.OrganizationOnboardingResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.LinkedAcctCreateResponseList",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.AddDepositAccountResponseList",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetApplicationDocumentResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.OrganizationAddRelatedPartyResponseList",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.LinkedAcctCreateResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.AddAccountPartyRelationshipResponseList",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.OrganizationAddRelatedPartyResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.userInfo",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetCustomerResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.AcctPartyRel List",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.getCustomerBirthDateChangeRequest_response",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetOpenResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.CustomerLinkedAccountResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetApplicationDocumentsResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetOrgApplicationDocumentsResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.GetCustomerApplicationDocumentsResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.getEmailResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.updateCustomerAddressResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.AddNotesResponse",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.getAccountingSegmentsResponse",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "utils.collection.acctgSegs",
+			"value": ""
+		},
+		{
+			"key": "utils.collection.getCustomerOrgRelsResponseList",
+			"value": ""
+		},
+		{
+			"key": "OrganizationOnboardingResponse.applicationId",
+			"value": "fb289e6c-b926-4113-897e-bc33d5e6c0c7"
+		}
+	]
+}
