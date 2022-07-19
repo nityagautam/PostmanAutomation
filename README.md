@@ -10,7 +10,8 @@ Automating the postman using the newman
     - Follow the link to download and install:
 
 ## How to run the framework
-> python3 runner.py
+- Opeen up the terminal/command prompt in your system and execute following command:
+> python runner.py --unit-check
 
 ## Architecture
 - Goes here
