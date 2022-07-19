@@ -1,6 +1,12 @@
 # Postman Automation
 Automating the postman using the newman
 
+# How to Install
+
+## Pre-requisite
+- Python
+- NodeJs
+
 ## Architecture
 - Goes here
 
