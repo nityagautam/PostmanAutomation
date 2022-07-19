@@ -54,6 +54,7 @@ collections_setup = {
 # timeout in seconds
 # -------------------------------------------
 TIMEOUT = 30
+RETRY = 3
 
 # Error codes mapping
 # -------------------------------------------
