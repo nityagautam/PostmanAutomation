@@ -20,7 +20,7 @@ from core.utilities import Utilities
 
 
 # ================================
-# Execute the automation now
+# Set the cli options and execute
 # ================================
 def main():
   # Adding cli options for Runner file
@@ -46,10 +46,13 @@ def main():
 
 
 
-    
+# ================================
+# Execute the script now
+# ================================ 
+# How to run
+  # ----------------------
+  # python3 runner.py
 if __name__ == "__main__":
-  # Start the process now
-  #Utilities().say_hello()
-  stdo, stde = Utilities().run_system_command("ls -la jai")
-  # main() ==> Executing the main if Include the cli options as well
+  stdo, stde = Utilities().run_system_command("ls -la")
+
 
