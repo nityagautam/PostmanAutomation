@@ -53,6 +53,7 @@ collections_setup = {
 
 # timeout in seconds
 # -------------------------------------------
+LOG_LEVEL = "INFO"
 TIMEOUT = 30
 RETRY = 3
 
