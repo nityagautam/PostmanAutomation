@@ -1,11 +1,20 @@
-# --------------------------------------------------
+# ======================================================================================
 # Logger Class
-# --------------------------------------------------
+# META:
+# Created: 18 July 2022
+# Last modified: 21 July 2022
+# Description: This contains the loggers for the framework
+# CAUTION : DO NOT TOUCH ANYTHING BELOW THIS, 
+#           IF U R NOT SURE OF UR ACTION.
+# ======================================================================================
 
 # Import section
-# ----------------
+# ----------------------------
 import os, datetime, logging
 
+
+# Class
+# ----------------------------
 class Logger:
 
     LOG_DIR = "logs/"
@@ -47,7 +56,7 @@ class Logger:
 
 
 """
-# Logger Class
+# Logger Class : Experimental code
 # ---------------
 class Logger:
 
