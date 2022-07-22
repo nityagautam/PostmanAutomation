@@ -18,7 +18,7 @@ regreession_collections = [
 
 ]
 envvironment_collection = [
-    "BankingServices.postman_environment.variables.json"
+    "./_dump/BankingServices.postman_environment.variables.json"
 ]
 
 # Test data files
