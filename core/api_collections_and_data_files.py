@@ -10,7 +10,7 @@
 # Collections to execute 
 # [order will be retained during execution]
 sanity_collections = [
-    "./_dump/Sample API Test01.postman_collection.json",
+    "./_dump/SampleAPITest01.postman_collection.json",
     "./_dump/ForAutomationMock.postman_collection.json",
     "sample_collection_file3.json"
 ]
