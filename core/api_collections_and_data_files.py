@@ -10,12 +10,15 @@
 # Collections to execute 
 # [order will be retained during execution]
 sanity_collections = [
-    "sample_collection_file1.json",
-    "sample_collection_file2.json",
+    "Sample API Test01.postman_collection.json",
+    "ForAutomationMock.postman_collection.json",
     "sample_collection_file3.json"
 ]
 regreession_collections = [
 
+]
+envvironment_collection = [
+    "BankingServices.postman_environment.variables.json"
 ]
 
 # Test data files

@@ -11,6 +11,14 @@
 # -----------
 from optparse import OptionParser
 from core.utilities import Utilities
+from core.logger import Logger
+import core.config as config
+import core.api_collections_and_data_files as api_collection
+
+# Getting the logger
+# ------------------------
+log = Logger().get_logger(__name__)
+
 
 # Inside code integration goes here ...
 
@@ -33,7 +41,7 @@ def main():
   # Check for the provided args length
   if len(args) < 1:
     #Lets say not enough
-    print("Looks like not enough options, will exit now")
+    log.error("Looks like not enough options, will exit now")
     cli_options.usage()
     Utilities.sys.exit(0)
 
@@ -50,9 +58,10 @@ def main():
 # Execute the script now
 # ================================ 
 # How to run
-  # ----------------------
-  # python3 runner.py
+# > python3 runner.py
+#
 if __name__ == "__main__":
-  stdo, stde = Utilities().run_system_command("ls -la")
+  cmd = config.newman_commands["RUN"] + " -e" + api_collection.envvironment_collection[0]
+  stdo, stde = Utilities().run_system_command(cmd)
 
 
