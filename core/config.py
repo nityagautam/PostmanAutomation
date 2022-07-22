@@ -29,7 +29,8 @@ npm_commands = {
     "UPDATE_NPM": "npm install -g npm"
 }
 newman_commands = {
-    "RUN" : "newman run {}",
+    "RUN" : "newman run ",
+    "RUN_WITH_COLLECTION" : "newman run {}",
     "RUN_WITH_ENV_VARS" : "newman run {} -e {}",
 }
 
