@@ -61,7 +61,7 @@ def main():
 # > python3 runner.py
 #
 if __name__ == "__main__":
-  cmd = config.newman_commands["RUN"] + " -e " + api_collection.envvironment_collection[0]
+  cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
   stdo, stde = Utilities().run_system_command(cmd)
 
 
