@@ -5,7 +5,11 @@
 # ======================================================================================
 # [Collection configurations]
 # ======================================================================================
-
+path_to_collections = {
+    "SAMPLE": "./_dump/",
+    "SANITY": "",
+    "RREGRESSION": ""
+}
 # -------------------------------------------
 # Collections to execute 
 # [order will be retained during execution]
