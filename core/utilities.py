@@ -51,16 +51,16 @@ class Utilities():
                 for line in process.stdout:
                     tmp_stdout_str += line
                 if log_cmd_out: 
-                    log.info("STDOUT: output")
-                    log.info(tmp_stdout_str.encode("UTF-8"))
+                    log.info("[STDOUT]>>> : output")
+                    #log.info(tmp_stdout_str.encode("UTF-8"))
                 
             # Collect the stderr from the process
             if process.stderr:
                 for line in process.stderr:
                     tmp_stderr_str += line
                 if log_cmd_out: 
-                    log.error("STDERR: output")
-                    log.error(tmp_stderr_str)
+                    log.error("[STDERR]>>> : output")
+                    #log.error(tmp_stderr_str)
         
         # Return 
         return tmp_stdout_str, tmp_stderr_str

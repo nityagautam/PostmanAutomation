@@ -7,8 +7,8 @@
 # ======================================================================================
 path_to_collections = {
     "SAMPLE": "./_dump/",
-    "SANITY": "",
-    "RREGRESSION": ""
+    "SANITY": "./suites/sanity/",
+    "REGRESSION": "./suites/regression/"
 }
 # -------------------------------------------
 # Collections to execute 
@@ -21,7 +21,7 @@ sanity_collections = [
 regreession_collections = [
 
 ]
-envvironment_collection = [
+environment_collection = [
     "./_dump/BankingServices.postman_environment.variables.json"
 ]
 

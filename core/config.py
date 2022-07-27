@@ -1,7 +1,7 @@
 # ======================================================================================
 # META:
 # Created: 15 July 2022
-# Last modified: 18 July 2022
+# Last modified: 27 July 2022
 # Description: This contains the configuration for
 #               - Framework's core setup/configuration
 # CAUTION : DO NOT TOUCH ANYTHING BELOW THIS, 
@@ -30,17 +30,19 @@ npm_commands = {
 }
 newman_commands = {
     "RUN" : "newman run ",
-    "RUN_WITH_COLLECTION" : "newman run {}",
-    "RUN_WITH_ENV_VARS" : "newman run {} -e {}",
+    "RUN_WITH_COLLECTION" : "newman run {collection_files}",
+    "RUN_WITH_ENV_VARS" : "newman run {collection_files} -e {env_file_name}",
+    "RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS": "newman run {collection_files} -e {env_file_name} -r htmlextra,cli --reporter-htmlextra-export {report_file_path}"
 }
 
 
 # Framework configuration
 # -------------------------------------------
-framework_setup = {
+framework = {
     "RUN_UNIT_TESTS": True,
     "SHOW_CONSOLE_LOGS": True,
-    "CREATE_FILE_LOGS": True
+    "CREATE_FILE_LOGS": True,
+    "REPORT_FILE_PATH": "./reports/SuiteReport.html"
 }
 
 # Collection configurations 
