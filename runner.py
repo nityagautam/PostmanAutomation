@@ -8,15 +8,15 @@
 
 
 # Imports
-# -----------
+# ------------------------------------
 from optparse import OptionParser
 from core.utilities import Utilities
 from core.logger import Logger
 import core.config as config
-import core.api_collections_and_data_files as api_collection
+import core.config_api_collections_and_data as config_api_collection
 
 # Getting the logger
-# ------------------------
+# ------------------------------------
 log = Logger().get_logger(__name__)
 
 
@@ -61,7 +61,13 @@ def main():
 # > python3 runner.py
 #
 if __name__ == "__main__":
-  cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
+  #cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
+  cmd = (config.newman_commands["RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS"]).format(
+    collection_files = config_api_collection.sanity_collections[0],
+    env_file_name = config_api_collection.environment_collection[0],
+    report_file_path = config.framework["REPORT_FILE_PATH"]
+  )
   stdo, stde = Utilities().run_system_command(cmd)
+  log.info(f"\n\n {'='*60} \nPlease find the report file at: {config.framework['REPORT_FILE_PATH']}\n {'='*60} \n\n")
 
 
