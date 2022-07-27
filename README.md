@@ -12,6 +12,7 @@ Automating the postman using the newman
 ## How to run the framework
 - Opeen up the terminal/command prompt in your system and execute following command:
 > python runner.py
+
 > python runner.py --unit-check {in-progress}
 
 ## Architecture
