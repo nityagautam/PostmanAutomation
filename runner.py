@@ -95,4 +95,6 @@ if __name__ == "__main__":
     # stdo, stde = Utilities().run_system_command(cmd)
     # log.info(
     #     f"\n\n {'=' * 60} \nPlease find the report file at: {config.framework['REPORT_FILE_PATH']}\n {'=' * 60} \n\n")
+
+    # Call the main with option parser
     main()
