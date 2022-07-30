@@ -17,19 +17,22 @@ import os, datetime, logging
 # ----------------------------
 class Logger:
 
+    __logger_name = ""
     LOG_DIR = "logs/"
     LOG_FILE = LOG_DIR + "Log_" + datetime.datetime.now().strftime("%A_%d_%B_%Y_%I_%M_%p") + ".log"
     LOG_FORMATTER_STR = "%(asctime)s - %(name)s - %(levelname)s - %(message)s  "
     
-    def __init__(self) -> None:
+    def __init__(self, logger_name) -> None:
+        # Set the name for logger
+        self.__logger_name = logger_name
         # Create log dir, in case not not created
         folder = os.path.join(os.getcwd(), self.LOG_DIR)
         if not os.path.isdir(folder):
             os.mkdir(folder)
 
-    def get_logger(self, logger_name):
+    def get_logger(self):
         # Create a logger
-        logger = logging.getLogger(logger_name)
+        logger = logging.getLogger(self.__logger_name)
         logger.setLevel(logging.DEBUG)
         
         # create formatter 

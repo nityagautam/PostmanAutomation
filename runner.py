@@ -9,15 +9,15 @@
 
 # Imports
 # ------------------------------------
+import sys
 from optparse import OptionParser
-from core.utilities import Utilities
-from core.logger import Logger
-import core.config as config
-import core.config_api_collections_and_data as config_api_collection
+from core.utils.utilities import log_special_message
+from core.utils.logger import Logger
+import core.configs.config as config
 
 # Getting the logger
 # ------------------------------------
-log = Logger().get_logger(__name__)
+log = Logger(__name__).get_logger()
 
 
 # Inside code integration goes here ...
@@ -31,27 +31,52 @@ log = Logger().get_logger(__name__)
 # Set the cli options and execute
 # ================================
 def main():
-  # Adding cli options for Runner file
-  # ---------------------------------------
-  cli_options = OptionParser(usage="")
-  cli_options.add_option("--path", "-p", type="string", dest="collectionsPath")
-  cli_options.add_option("--log", "-l", action="store_true", dest="log")
-  (options, args) = cli_options.parse_args()
+    # Adding cli options for Runner file
+    # ---------------------------------------
+    usage_msg = "\n" \
+                "synopsis: python3 runner.py [options] \n" \
+                "options: --test|-t <SAMPLE|SANITY|...>    <-- Provide the test to execute separated with comma\n" \
+                "         --env|-e <DEFAULT|TEST|DEBUG>    <-- Provide the api environment to consider \n" \
+                "         --check|-c                       <-- Check the system req and required modules \n" \
+                "Example: \n" \
+                "        python3 runner.py --test sanity,sample --env default --check\n" \
+                "\n"
+    cli_options = OptionParser(usage=usage_msg)
+    cli_options.add_option("--path", "-p", type="string", dest="collectionsPath")
+    cli_options.add_option("--test", "-t", type="string", dest="testType")
+    cli_options.add_option("--env", "-e", type="string", dest="testEnv")
+    cli_options.add_option("--check", "-c", action="store_true", dest="systemCheck")
+    cli_options.add_option("--log", "-l", action="store_true", dest="log")
+    (options, args) = cli_options.parse_args()
 
-  # Check for the provided args length
-  if len(args) < 1:
-    #Lets say not enough
-    log.error("Looks like not enough options, will exit now")
-    cli_options.usage()
-    Utilities.sys.exit(0)
+    # Check for the provided args length
+    # -------------------------------------
+    if len(args) < 1:
+        # If I don't want to ahead without options then I should exit now
+        if not config.framework["RUN_WITHOUT_OPTIONS"]:
+            log_special_message("Looks like you have not given enough options for execution; Will Exit now... \n"
+                                "In case you are not sure about the usage of option, refer following: \n\n"
+                                "" + cli_options.get_usage(), typ='warning')
+            sys.exit(0)
 
-  # Take the first argument value
-  file = args[0]
+        # Lets say not enough
+        log_special_message("Looks like you have not used options; so will be using defaults. \n"
+                            "In case you are not sure about the usage of option then see the usage following: \n\n"
+                            "" + cli_options.get_usage(), typ='warning')
 
-  # Verify the options
-  if options.log == True:
-    pass
 
+    # Take the first argument value
+    # file = args[0]
+
+    # Verify the options
+    if options.log:
+        log.info("Okay! Setting logging ON")
+    if options.systemCheck:
+        log.info("Okay! Will run the system check first ...")
+
+    # Finally show the collected args
+    print("Collected following options:: \n")
+    print(options)
 
 
 # ================================
@@ -61,13 +86,13 @@ def main():
 # > python3 runner.py
 #
 if __name__ == "__main__":
-  #cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
-  cmd = (config.newman_commands["RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS"]).format(
-    collection_files = config_api_collection.sanity_collections[0],
-    env_file_name = config_api_collection.environment_collection[0],
-    report_file_path = config.framework["REPORT_FILE_PATH"]
-  )
-  stdo, stde = Utilities().run_system_command(cmd)
-  log.info(f"\n\n {'='*60} \nPlease find the report file at: {config.framework['REPORT_FILE_PATH']}\n {'='*60} \n\n")
-
-
+    # cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
+    # cmd = (config.newman_commands["RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS"]).format(
+    #     collection_files=config_api_collection.sanity_collections[0],
+    #     env_file_name=config_api_collection.environment_collection[0],
+    #     report_file_path=config.framework["REPORT_FILE_PATH"]
+    # )
+    # stdo, stde = Utilities().run_system_command(cmd)
+    # log.info(
+    #     f"\n\n {'=' * 60} \nPlease find the report file at: {config.framework['REPORT_FILE_PATH']}\n {'=' * 60} \n\n")
+    main()

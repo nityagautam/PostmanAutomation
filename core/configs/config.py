@@ -11,27 +11,28 @@
 # Binaries mapping
 # -------------------------------------------
 os_binaries = {
-    'PYTHON3': 'path_to_python3',
-    'NODEJS': 'path_to_nodejs',
-    'NEWMAN' : 'path_to_newman_binary'
+    'PYTHON3': 'python3',
+    'NODEJS': 'node'
 }
 library_packages = {
     "NPM": "npm",
-    "NEWMAN" : "newman",
-    "PLAIN_HTML_REPORTER": "",
-    "FANCY_HTML_REPORTER": "",
+    "NEWMAN": "newman",
+    "PLAIN_HTML_REPORTER": "newman-reporter-html",
+    "FANCY_HTML_REPORTER": "newman-reporter-htmlextra",
 }
 npm_commands = {
     "INSTALL": "npm install {}",
+    "INSTALL_GLOBAL": "npm install -g {}",
     "UPDATE": "npm update {}",
     "AUDIT": "npm audit --json",
     "AUDIT_FIX": "npm audit fix --force --dry-run --json",
     "UPDATE_NPM": "npm install -g npm"
 }
 newman_commands = {
-    "RUN" : "newman run ",
-    "RUN_WITH_COLLECTION" : "newman run {collection_files}",
-    "RUN_WITH_ENV_VARS" : "newman run {collection_files} -e {env_file_name}",
+    "RUN": "newman run ",
+    "RUN_WITH_COLLECTION": "newman run {collection_files}",
+    "RUN_WITH_ENV_VARS": "newman run {collection_files} -e {env_file_name}",
+    "RUN_WITH_ENV_VARS_WITH_REPORT": "newman run {collection_files} -e {env_file_name} -r {report_config}",
     "RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS": "newman run {collection_files} -e {env_file_name} -r htmlextra,cli --reporter-htmlextra-export {report_file_path}"
 }
 
@@ -39,10 +40,29 @@ newman_commands = {
 # Framework configuration
 # -------------------------------------------
 framework = {
+    "RUN_WITHOUT_OPTIONS": True,
     "RUN_UNIT_TESTS": True,
     "SHOW_CONSOLE_LOGS": True,
     "CREATE_FILE_LOGS": True,
-    "REPORT_FILE_PATH": "./reports/SuiteReport.html"
+
+    "TEST_SUITES_TO_EXECUTE": ["samples"],
+    "API_EXECUTION_ENV": "default",
+
+    "REPORT_FILE_PATH": "./reports/",
+    "REPORT_FILE_NAME_HTML": "SuiteReport.html",
+    "REPORT_FILE_NAME_FANCY_HTML": "FancySuiteReport.html",
+    "REPORT_FILE_NAME_JUNIT": "SuiteReport.xml",
+    "REPORT_FILE_NAME_JSON": "SuiteReport.json",
+
+    "REPORT_TYPE_CLI": "cli",
+    "REPORT_TYPE_JUNIT": "junit --reporter-junit-export {report_file_path}",
+    "REPORT_TYPE_HTML": "html --reporter-html-export {report_file_path}",
+    "REPORT_TYPE_FANCY_HTML": "htmlextra --reporter-htmlextra-export {report_file_path}",
+    "REPORT_TYPE_MIXED": "cli,html,htmlextra,junit "
+                         "--reporter-html-export {html_report_file_path} "
+                         "--reporter-htmlextra-export {fancy_html_report_file_path} "
+                         "--reporter-junit-export {junit_report_file_path}",
+
 }
 
 # Collection configurations 

@@ -11,17 +11,32 @@
 # ---------
 from time import time
 from subprocess import Popen, PIPE
-from core.logger import Logger
+from core.utils.logger import Logger
 
 # Getting the logger
 # ------------------------
-log = Logger().get_logger(__name__)
+log = Logger(__name__).get_logger()
+
+
+# format a string to print the error/info msg
+# --------------------------------------------------
+def log_special_message(msg, typ: str = "info"):
+    if typ.lower() == 'info':
+        log.info("\n" + "=-" * 50 + f"\n{msg} \n" + "=-" * 50)
+    elif typ.lower() == 'error':
+        log.error("\n" + "=-" * 50 + f"\n{msg} \n" + "=-" * 50)
+    elif typ.lower() == 'debug':
+        log.debug("\n" + "=-" * 50 + f"\n{msg} \n" + "=-" * 50)
+    elif typ.lower() == 'warning':
+        log.warning("\n" + "=-" * 50 + f"\n{msg} \n" + "=-" * 50)
+    else:
+        log.info("\n" + "=-" * 50 + f"\n{msg} \n" + "=-" * 50)
 
 
 # --------------------------------------------------
-# Class to proivde various utilities
+# Class to provide various utilities
 # --------------------------------------------------
-class Utilities():
+class Utilities:
     
     def __init__(self) -> None:
         pass
