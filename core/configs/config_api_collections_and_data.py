@@ -12,19 +12,11 @@
 # ======================================================================================
 
 # -------------------------------------------
-# file path configurations for suites
-# -------------------------------------------
-collections_suite_path = {
-    "SAMPLE": "./suites/samples/",
-    "SANITY": "./suites/sanity/",
-    "REGRESSION": "./suites/regression/"
-}
-# -------------------------------------------
 # Environment configurations for collection
 # -------------------------------------------
 api_environment = {
-    "default": "BankingServices.postman_environment.variables.json",
-    "test": "BankingServices.postman_environment.variables.json",
+    "default": "./suites/samples/BankingServices.postman_environment.variables.json",
+    "test": "./suites/samples/BankingServices.postman_environment.variables.json",
     "debug": ""
 }
 
@@ -33,6 +25,15 @@ api_environment = {
 # -------------------------------------------
 test_data_files = {
     "global_csv_test_data_for_tc1": "PATH_TO_DATA_FILE"
+}
+
+# -------------------------------------------
+# file path configurations for suites
+# -------------------------------------------
+collections_suite_path = {
+    "samples": "./suites/samples/",
+    "sanity": "./suites/sanity/",
+    "regression": "./suites/regression/"
 }
 
 # -------------------------------------------
@@ -45,7 +46,7 @@ test_data_files = {
 # etc
 # [order will be retained during execution]
 api_collections = {
-    "sample": [
+    "samples": [
         "SampleAPITest01.postman_collection.json",
         "ForAutomationMock.postman_collection.json"
     ],
