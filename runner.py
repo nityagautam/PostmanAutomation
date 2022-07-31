@@ -88,10 +88,9 @@ def main():
     # Execute the command now
     stdo, stde = Utilities().run_system_command(collector_obj.get('command'))
 
-    log.info("Test has been executed.")
-    log.info(f"\n\n "
+    log.info(f"\n "
              f"{'=-' * 60} \n"
-             f"Please find the report file at: {config.framework['REPORT_FILE_PATH']}\n "
+             f" Test has been executed. Please find the report file at: {config.framework['REPORT_FILE_PATH']}\n "
              f"{'=-' * 60} \n\n")
 
 
