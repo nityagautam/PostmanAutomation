@@ -9,9 +9,12 @@
 
 # Imports
 # ------------------------------------
+import json
 import sys
 from optparse import OptionParser
-from core.utils.utilities import log_special_message
+
+from core.collector import Collector
+from core.utils.utilities import log_special_message, Utilities
 from core.utils.logger import Logger
 import core.configs.config as config
 
@@ -75,26 +78,27 @@ def main():
         log.info("Okay! Will run the system check first ...")
 
     # Finally show the collected args
-    print("Collected following options:: \n")
-    print(options)
+    log.info("Collected following cli options:: ")
+    log.info(options)
+
+    # Start the collector to collect everything
+    collector_obj = Collector().run()
+    log_special_message("Collector status is: \n" + json.dumps(collector_obj, sort_keys=True, indent=4), typ="debug")
+
+    # Execute the command now
+    stdo, stde = Utilities().run_system_command(collector_obj.get('command'))
+
+    log.info("Test has been executed.")
+    log.info(f"\n\n "
+             f"{'=-' * 60} \n"
+             f"Please find the report file at: {config.framework['REPORT_FILE_PATH']}\n "
+             f"{'=-' * 60} \n\n")
 
 
 # ================================
 # Execute the script now
 # ================================ 
-# How to run
-# > python3 runner.py
-#
 if __name__ == "__main__":
-    # cmd = config.newman_commands["RUN"] + " " + api_collection.sanity_collections[0] + " -e " + api_collection.envvironment_collection[0]
-    # cmd = (config.newman_commands["RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS"]).format(
-    #     collection_files=config_api_collection.sanity_collections[0],
-    #     env_file_name=config_api_collection.environment_collection[0],
-    #     report_file_path=config.framework["REPORT_FILE_PATH"]
-    # )
-    # stdo, stde = Utilities().run_system_command(cmd)
-    # log.info(
-    #     f"\n\n {'=' * 60} \nPlease find the report file at: {config.framework['REPORT_FILE_PATH']}\n {'=' * 60} \n\n")
 
     # Call the main with option parser
     main()
