@@ -56,7 +56,7 @@ class Collector:
         # and then collect the api collection based on that
         for test_type in core_config.framework["TEST_SUITES_TO_EXECUTE"]:
             for collection in coll_config.api_collections[test_type]:
-                self.__api_collections_to_run += "'" + coll_config.collections_suite_path[test_type] + collection + "' "
+                self.__api_collections_to_run += "" + coll_config.collections_suite_path[test_type] + collection + " "
 
         # Add the quotes at both side for the collected files like: '<collected_files>'
         # self.__api_collections_to_run = "'" + self.__api_collections_to_run + "'"
@@ -69,9 +69,9 @@ class Collector:
     def collect_api_environment(self):
         # Collect the api environment
         # [default/ test/ debug]
-        self.__api_environment = "'" + \
+        self.__api_environment = " " + \
                                  coll_config.api_environment[core_config.framework["API_EXECUTION_ENVIRONMENT"]] + \
-                                 "' "
+                                 " "
 
         # return the collected api environment
         return self.__api_environment

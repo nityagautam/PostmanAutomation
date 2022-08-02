@@ -14,9 +14,10 @@
 # -------------------------------------------
 # Environment configurations for collection
 # -------------------------------------------
+# C:\Users\nfaruqe\Desktop\Automation\PostmanAutomation\suites\Samples\BankingServices.postman_environment.variables.json
 api_environment = {
-    "default": "./suites/samples/BankingServices.postman_environment.variables.json",
-    "test": "./suites/samples/BankingServices.postman_environment.variables.json",
+    "default": "C:/Users/nfaruqe/Desktop/Automation/PostmanAutomation/suites/samples/BankingServices.postman_environment.variables.json",
+    "test": "C:/Users/nfaruqe/Desktop/Automation/PostmanAutomation/suites/samples/BankingServices.postman_environment.variables.json",
     "debug": ""
 }
 
@@ -47,8 +48,8 @@ collections_suite_path = {
 # [order will be retained during execution]
 api_collections = {
     "samples": [
-        "SampleAPITest01.postman_collection.json",
-        "ForAutomationMock.postman_collection.json"
+        "SampleAPITest01.postman_collection.json"
+        
     ],
     "sanity": [
 
