@@ -86,12 +86,18 @@ class Collector:
         fancy_ht = file_path + core_config.framework["REPORT_FILE_NAME_FANCY_HTML"].format(placeholder=placeholder_text)
         junit_file = file_path + core_config.framework["REPORT_FILE_NAME_JUNIT"].format(placeholder=placeholder_text)
         json_file = file_path + core_config.framework["REPORT_FILE_NAME_JSON"].format(placeholder=placeholder_text)
+        
+        # For HTML Reports
         self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
-            .format(html_report_file_path=html_file,
-                    fancy_html_report_file_path=fancy_ht,
-                    junit_report_file_path=junit_file,
-                    json_report_file_path=json_file
-                    )
+            .format(report_file_path=fancy_ht)
+
+        # For mixed reports
+        # self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
+        #     .format(html_report_file_path=html_file,
+        #             fancy_html_report_file_path=fancy_ht,
+        #             junit_report_file_path=junit_file,
+        #             json_report_file_path=json_file
+        #             )
 
         # return the collected report options
         return self.__report_options

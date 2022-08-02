@@ -40,7 +40,7 @@ newman_reports = {
     "REPORT_TYPE_CLI": "cli",
     "REPORT_TYPE_JUNIT": "junit --reporter-junit-export {report_file_path}",
     "REPORT_TYPE_HTML": "html --reporter-html-export {report_file_path}",
-    "REPORT_TYPE_FANCY_HTML": "htmlextra --reporter-htmlextra-export {report_file_path}",
+    "REPORT_TYPE_FANCY_HTML": "cli,htmlextra --reporter-htmlextra-export {report_file_path}",
     "REPORT_TYPE_MIXED": "cli,html,htmlextra,junit,json "
                          "--reporter-html-export {html_report_file_path} "
                          "--reporter-htmlextra-export {fancy_html_report_file_path} "
@@ -60,7 +60,7 @@ framework = {
 
     "TEST_SUITES_TO_EXECUTE": ["samples"],
     "API_EXECUTION_ENVIRONMENT": "default",
-    "TEST_REPORTER_OPT_TO_USE": "REPORT_TYPE_MIXED",
+    "TEST_REPORTER_OPT_TO_USE": "REPORT_TYPE_FANCY_HTML",
 
     "REPORT_FILE_PATH": "./reports/",
     "REPORT_FILE_NAME_HTML": "SuiteReport_{placeholder}.html",
