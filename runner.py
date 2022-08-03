@@ -100,4 +100,10 @@ def main():
 if __name__ == "__main__":
 
     # Call the main with option parser
-    main()
+    #main()
+
+    # Test the package
+    Utilities().run_system_command("node --version")
+    Utilities().run_system_command("npm --version")
+    Utilities().run_system_command("newman --version")
+    Utilities().run_system_command("npm install -g newman")

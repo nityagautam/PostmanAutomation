@@ -80,24 +80,31 @@ class Collector:
     # --------------------------------------------
     def collect_report_options(self):
         # Collect the report options
-        file_path = core_config.framework["REPORT_FILE_PATH"]
-        placeholder_text = str(datetime.datetime.now()).replace(" ", "_")
-        html_file = file_path + core_config.framework["REPORT_FILE_NAME_HTML"].format(placeholder=placeholder_text)
-        fancy_ht = file_path + core_config.framework["REPORT_FILE_NAME_FANCY_HTML"].format(placeholder=placeholder_text)
-        junit_file = file_path + core_config.framework["REPORT_FILE_NAME_JUNIT"].format(placeholder=placeholder_text)
-        json_file = file_path + core_config.framework["REPORT_FILE_NAME_JSON"].format(placeholder=placeholder_text)
-        
-        # For HTML Reports
-        self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
-            .format(report_file_path=fancy_ht)
+        try:
+            # Creating file name
+            file_path = core_config.framework["REPORT_FILE_PATH"]
+            file_name = str(datetime.datetime.now()).replace(" ", "_").replace(":", "-").split(".")[0]
+            html_file = file_path + core_config.framework["REPORT_FILE_NAME_HTML"].format(placeholder=file_name)
+            fancy_ht = file_path + core_config.framework["REPORT_FILE_NAME_FANCY_HTML"].format(placeholder=file_name)
+            junit_file = file_path + core_config.framework["REPORT_FILE_NAME_JUNIT"].format(placeholder=file_name)
+            json_file = file_path + core_config.framework["REPORT_FILE_NAME_JSON"].format(placeholder=file_name)
 
-        # For mixed reports
-        # self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
-        #     .format(html_report_file_path=html_file,
-        #             fancy_html_report_file_path=fancy_ht,
-        #             junit_report_file_path=junit_file,
-        #             json_report_file_path=json_file
-        #             )
+
+            # For HTML Reports
+            self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
+                .format(report_file_path=fancy_ht)
+
+            # For mixed reports
+            # self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
+            #     .format(html_report_file_path=html_file,
+            #             fancy_html_report_file_path=fancy_ht,
+            #             junit_report_file_path=junit_file,
+            #             json_report_file_path=json_file
+            #             )
+
+        except BaseException as e:
+            log.error("There is some error during report filename creation: ")
+            log.error(e.with_traceback())
 
         # return the collected report options
         return self.__report_options
