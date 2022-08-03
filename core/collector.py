@@ -27,7 +27,6 @@ log = Logger(__name__).get_logger()
 # Collector Class
 # ----------------------------
 class Collector:
-
     # Properties
     # --------------------
     __collector_obj = {}
@@ -89,10 +88,10 @@ class Collector:
             junit_file = file_path + core_config.framework["REPORT_FILE_NAME_JUNIT"].format(placeholder=file_name)
             json_file = file_path + core_config.framework["REPORT_FILE_NAME_JSON"].format(placeholder=file_name)
 
-
             # For HTML Reports
-            self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
-                .format(report_file_path=fancy_ht)
+            self.__report_options = core_config.newman_reports[
+                core_config.framework["TEST_REPORTER_OPT_TO_USE"]] \
+                .format(report_file_path=fancy_ht, junit_report_file_path=junit_file)
 
             # For mixed reports
             # self.__report_options = core_config.newman_reports[core_config.framework["TEST_REPORTER_OPT_TO_USE"]]\
@@ -143,8 +142,7 @@ class Collector:
         # Return the dict obj
         return self.__collector_obj
 
-
 # [DEBUG] Execute now
 # -------------
-#print("Return status is: ", Collector().show())
-#print("Return status is: ", Collector().run())
+# print("Return status is: ", Collector().show())
+# print("Return status is: ", Collector().run())
