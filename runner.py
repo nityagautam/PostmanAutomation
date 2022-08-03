@@ -103,7 +103,7 @@ if __name__ == "__main__":
     log_special_message("Checking the installed binaries in the system")
     Utilities().run_system_command("node --version")
     Utilities().run_system_command("npm --version")
-    Utilities().run_system_command("newman --version")
+    Utilities().run_system_command("npm -m newman --version")
     log.info("")
 
     # Call the main with option parser
