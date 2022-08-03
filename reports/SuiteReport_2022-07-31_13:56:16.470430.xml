@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Sample API Test01" tests="5" time="0.000">
+  <testsuite name="Post Token" id="b32cf02c-114a-4e02-803c-a1da05165d80" timestamp="2022-07-31T08:26:18.526Z" tests="0" failures="0" errors="2" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ETIMEDOUT 18.232.193.160:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16)
+
+---
+testScriptError: Cannot read property 'toString' of undefined
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="createUser" id="6a30f5a6-d090-4d83-93b2-b84c46c87714" timestamp="2022-07-31T08:26:18.526Z" tests="0" failures="0" errors="2" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ETIMEDOUT 18.232.193.160:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16)
+
+---
+testScriptError: Cannot read property 'toString' of undefined
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="loginUser" id="8039b1b8-35c9-4ed8-968a-9c68c2804e04" timestamp="2022-07-31T08:26:18.526Z" tests="0" failures="0" errors="2" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ETIMEDOUT 34.196.60.60:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16)
+
+---
+testScriptError: Cannot read property 'toString' of undefined
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="getCountries" id="8ff76508-04f4-43fa-a30c-a930613d84af" timestamp="2022-07-31T08:26:18.526Z" tests="2" failures="2" errors="1" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ETIMEDOUT 34.196.60.60:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16)
+
+---
+]]></system-err>
+    <testcase name="Status code is 200" time="0.000" classname="SampleApiTest01">
+      <failure type="AssertionFailure" message="expected { Object (id, _details, ...) } to have property 'code'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 8d560bdf-4348-41a9-9328-e3053b401b4b.]]>
+        <![CDATA[Collection name: Sample API Test01.]]>
+        <![CDATA[Request name: getCountries.]]>
+        <![CDATA[Test description: Status code is 200.]]>
+        <![CDATA[Error message: expected { Object (id, _details, ...) } to have property 'code'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected { Object (id, _details, ...) } to have property 'code'
+   at Object.eval sandbox-script.js:1:4).]]>
+      </failure>
+    </testcase>
+    <testcase name="Response time is less than 1500ms" time="0.000" classname="SampleApiTest01">
+      <failure type="AssertionFailure" message="expected undefined to be a number or a date">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 8d560bdf-4348-41a9-9328-e3053b401b4b.]]>
+        <![CDATA[Collection name: Sample API Test01.]]>
+        <![CDATA[Request name: getCountries.]]>
+        <![CDATA[Test description: Response time is less than 1500ms.]]>
+        <![CDATA[Error message: expected undefined to be a number or a date.]]>
+        <![CDATA[Stacktrace: AssertionError: expected undefined to be a number or a date
+   at Object.eval sandbox-script.js:2:4).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="getCountrySubdivisions" id="5f4e3714-7ae1-4505-8791-adecde9fff72" timestamp="2022-07-31T08:26:18.526Z" tests="2" failures="2" errors="1" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ETIMEDOUT 34.196.60.60:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16)
+
+---
+]]></system-err>
+    <testcase name="Status code is 200" time="0.000" classname="SampleApiTest01">
+      <failure type="AssertionFailure" message="expected { Object (id, _details, ...) } to have property 'code'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 8d560bdf-4348-41a9-9328-e3053b401b4b.]]>
+        <![CDATA[Collection name: Sample API Test01.]]>
+        <![CDATA[Request name: getCountrySubdivisions.]]>
+        <![CDATA[Test description: Status code is 200.]]>
+        <![CDATA[Error message: expected { Object (id, _details, ...) } to have property 'code'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected { Object (id, _details, ...) } to have property 'code'
+   at Object.eval sandbox-script.js:1:5).]]>
+      </failure>
+    </testcase>
+    <testcase name="Response time is less than 1500ms" time="0.000" classname="SampleApiTest01">
+      <failure type="AssertionFailure" message="expected undefined to be a number or a date">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 8d560bdf-4348-41a9-9328-e3053b401b4b.]]>
+        <![CDATA[Collection name: Sample API Test01.]]>
+        <![CDATA[Request name: getCountrySubdivisions.]]>
+        <![CDATA[Test description: Response time is less than 1500ms.]]>
+        <![CDATA[Error message: expected undefined to be a number or a date.]]>
+        <![CDATA[Stacktrace: AssertionError: expected undefined to be a number or a date
+   at Object.eval sandbox-script.js:2:5).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -62,11 +62,10 @@ def main():
                                 "" + cli_options.get_usage(), typ='warning')
             sys.exit(0)
 
-        # Lets say not enough
-        log_special_message("Looks like you have not used options; so will be using defaults. \n"
-                            "In case you are not sure about the usage of option then see the usage following: \n\n"
-                            "" + cli_options.get_usage(), typ='warning')
-
+        # Lets say not enough, if running without options
+        # log_special_message("Looks like you have not used options; so will be using defaults. \n"
+        #                     "In case you are not sure about the usage of option then see the usage following: \n\n"
+        #                     "" + cli_options.get_usage(), typ='warning')
 
     # Take the first argument value
     # file = args[0]
@@ -99,18 +98,8 @@ def main():
 # ================================ 
 if __name__ == "__main__":
 
-    # Test the package
-    log_special_message("Checking the installed binaries in the system")
-    stdo, stde = Utilities().run_system_command("node --version")
-    log.info(stdo)
-    stdo, stde = Utilities().run_system_command("npm --version")
-    log.info(stdo)
-    #stdo, stde = Utilities().run_system_command("npm install newman --location=global")
-    #log.info(stdo)
-    stdo, stde = Utilities().run_system_command("c:/Users/nfaruqe/AppData/Roaming/npm/newman --version")
-    #stdo, stde = Utilities().run_system_command("npm newman --version")
-    log.info(stdo)
-    log.info("")
+    # Check the binaries
+    Utilities().check_the_binaries()
 
     # Call the main with option parser
     main()

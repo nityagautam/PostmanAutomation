@@ -49,6 +49,20 @@ class Utilities:
             log.debug(f"Function: {function} took {elapsed} seconds to complete")
             return data
 
+    # Check the binaries
+    def check_the_binaries(self):
+        # Test the package
+        log_special_message("Checking the installed binaries in the system")
+        stdo, stde = Utilities().run_system_command("node --version")
+        log.info(stdo)
+        stdo, stde = Utilities().run_system_command("npm --version")
+        log.info(stdo)
+        # stdo, stde = Utilities().run_system_command("npm install newman --location=global")
+        # log.info(stdo)
+        stdo, stde = Utilities().run_system_command("c:/Users/nfaruqe/AppData/Roaming/npm/newman --version")
+        # stdo, stde = Utilities().run_system_command("npm newman --version")
+        log.info(stdo)
+
     # Run command
     def run_system_command(self, *argv, log_cmd=True, log_cmd_out=True, errfile=False):
         tmp_stdout_str = ""
