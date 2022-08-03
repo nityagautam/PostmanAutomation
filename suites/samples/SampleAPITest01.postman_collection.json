@@ -91,9 +91,6 @@
 							"    responseType: \"CustomerOnboardingResponse\",\r",
 							"    addFields: {}\r",
 							"});\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(20);\r",
-							"});\r",
 							"pm.test(\"Response time is less than 2.5s\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(2500000);\r",
 							"});"
