@@ -142,7 +142,3 @@ class Collector:
         # Return the dict obj
         return self.__collector_obj
 
-# [DEBUG] Execute now
-# -------------
-# print("Return status is: ", Collector().show())
-# print("Return status is: ", Collector().run())
