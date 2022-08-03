@@ -101,10 +101,13 @@ if __name__ == "__main__":
 
     # Test the package
     log_special_message("Checking the installed binaries in the system")
-    Utilities().run_system_command("node --version")
-    Utilities().run_system_command("npm --version")
-    Utilities().run_system_command("npm -m newman --version")
+    stdo, stde = Utilities().run_system_command("node --version")
+    log.info(stdo)
+    stdo, stde = Utilities().run_system_command("npm --version")
+    log.info(stdo)
+    stdo, stde = Utilities().run_system_command("npm -m newman --version")
+    log.info(stdo)
     log.info("")
 
     # Call the main with option parser
-    main()
+    #main()
