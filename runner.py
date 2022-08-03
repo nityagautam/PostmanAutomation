@@ -12,7 +12,6 @@
 import json
 import sys
 from optparse import OptionParser
-
 from core.collector import Collector
 from core.utils.utilities import log_special_message, Utilities
 from core.utils.logger import Logger
@@ -21,13 +20,6 @@ import core.configs.config as config
 # Getting the logger
 # ------------------------------------
 log = Logger(__name__).get_logger()
-
-
-# Inside code integration goes here ...
-
-# Setup/Config integration goes here ...
-
-# test-data integration goes here ...
 
 
 # ================================
