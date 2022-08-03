@@ -11,8 +11,9 @@
 # Binaries mapping
 # -------------------------------------------
 os_binaries = {
-    'PYTHON3': 'python3',
-    'NODEJS': 'node'
+    "PYTHON3": "python3",
+    "node": "node",
+    "newman": "c:/Users/nfaruqe/AppData/Roaming/npm/newman"
 }
 library_packages = {
     "NPM": "npm",
@@ -32,7 +33,7 @@ newman_commands = {
     "RUN": "newman run ",
     "RUN_WITH_COLLECTION": "newman run {collection_files}",
     "RUN_WITH_ENV_VARS": "newman run {collection_files} -e {env_file_name}",
-    "RUN_WITH_ENV_VARS_WITH_REPORT": "newman run {collection_files} -e {environment_file} -r {report_options}",
+    "RUN_WITH_ENV_VARS_WITH_REPORT": "{newman} run {collection_files} -e {environment_file} -r {report_options}",
     "RUN_WITH_ENV_VARS_AND_PRODUCE_REPORTS": "newman run {collection_files} -e {env_file_name} -r htmlextra,cli --reporter-htmlextra-export {report_file_path}"
 }
 

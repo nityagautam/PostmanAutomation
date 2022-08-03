@@ -111,8 +111,9 @@ class Collector:
 
     # Collect the final command
     def collect_the_final_command(self):
-        # {collection_files} -e {env_file_name} -r {report_config}
+        # {newman} run {collection_files} -e {env_file_name} -r {report_config}
         self.__cmd = core_config.newman_commands["RUN_WITH_ENV_VARS_WITH_REPORT"].format(
+            newman=core_config.os_binaries["newman"],
             collection_files=self.__api_collections_to_run,
             environment_file=self.__api_environment,
             report_options=self.__report_options
