@@ -107,7 +107,8 @@ if __name__ == "__main__":
     log.info(stdo)
     stdo, stde = Utilities().run_system_command("npm install newman --location=global")
     log.info(stdo)
-    stdo, stde = Utilities().run_system_command("c:/Users/nfaruqe/AppData/Roaming/npm/newman --version")
+    #stdo, stde = Utilities().run_system_command("c:/Users/nfaruqe/AppData/Roaming/npm/newman --version")
+    stdo, stde = Utilities().run_system_command("newman --version")
     log.info(stdo)
     log.info("")
 
