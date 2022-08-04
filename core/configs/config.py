@@ -81,10 +81,14 @@ collections_setup = {
 }
 
 # timeout in seconds
+# Meaning:
+#   It will retry any failed collection,
+#   and for each try it will wait for provided seconds
+#   Also, the retry value is provided here
 # -------------------------------------------
-LOG_LEVEL = "INFO"
 TIMEOUT = 30
 RETRY = 3
+LOG_LEVEL = "INFO"
 
 # Error codes mapping
 # -------------------------------------------
