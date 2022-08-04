@@ -108,7 +108,10 @@ class Collector:
         # return the collected report options
         return self.__report_options
 
-    # Collect the final command
+    # Collect the final command, Meaning
+    # -----------------------------------
+    # This will combine all the above information,
+    # and bundle it inside an object
     def collect_the_final_command(self):
         # {newman} run {collection_files} -e {env_file_name} -r {report_config}
         self.__cmd = core_config.newman_commands["RUN_WITH_ENV_VARS_WITH_REPORT"].format(
