@@ -59,3 +59,19 @@ Automating the postman using the newman
   - Collections file has been added under `api_collections = {"samples": ["<Collection_file_name_1>", "<Collection_file_name_k>", ...], ...`
 - Changes inside the `config.py`
   - `samples` has been added into `"TEST_SUITES_TO_EXECUTE": ["samples"],` under the `framework`
+  
+#### And then execute
+> python3 runner.py
+
+#### Look out the generated reports
+- Under the `reports /` dir
+  - You will see two files
+  - `<*.html>` is HTML report 
+  - `<*.xml>` is the JUnit report
+  
+#### Look out the generated logs
+- Under the `logs /` dir
+  - You will see various log files based on the time and date
+  
+
+### End
