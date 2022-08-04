@@ -30,19 +30,19 @@ def main():
     # ---------------------------------------
     usage_msg = "\n" \
                 "synopsis: python3 runner.py [options] \n" \
-                "options: --test|-t <SAMPLE|SANITY|...>    <-- Provide the test to execute separated with comma\n" \
-                "         --env|-e <DEFAULT|TEST|DEBUG>    <-- Provide the api environment to consider \n" \
-                "         --check|-c                       <-- Check the system req and required modules \n" \
                 "Example: \n" \
-                "        python3 runner.py --test sanity,sample --env default --check\n" \
+                "        python3 runner.py --test-suite=sanity,sample --env=test --check\n" \
                 "\n"
     cli_options = OptionParser(usage=usage_msg)
-    cli_options.add_option("--path", "-p", type="string", dest="collectionsPath")
-    cli_options.add_option("--test", "-t", type="string", dest="testType")
-    cli_options.add_option("--env", "-e", type="string", dest="testEnv")
-    cli_options.add_option("--check", "-c", action="store_true", dest="systemCheck")
-    cli_options.add_option("--log", "-l", action="store_true", dest="log")
+    cli_options.add_option("--test-suite", "-t", type="string", dest="testSuite", help="Provide this to consider the suites")
+    cli_options.add_option("--env", "-e", type="string", dest="testEnv", help="Provide this to specify the eenvironment for the collections")
+    cli_options.add_option("--check", "-c", action="store_true", dest="systemCheck", default=False, help="Provide this to check the pre-reequisite binaries")
+    cli_options.add_option("--no-run", "-n", action="store_true", dest="noRun", default=False, help="Provide this to stop the newman execution")
     (options, args) = cli_options.parse_args()
+
+    # Finally show the collected args
+    log.info("Collected following cli options:: ")
+    log.info(options)
 
     # Check for the provided args length
     # -------------------------------------
@@ -63,35 +63,29 @@ def main():
     # file = args[0]
 
     # Verify the options
-    if options.log:
-        log.info("Okay! Setting logging ON")
     if options.systemCheck:
-        log.info("Okay! Will run the system check first ...")
+        # Check the binaries
+        Utilities().check_the_binaries()
 
-    # Finally show the collected args
-    log.info("Collected following cli options:: ")
-    log.info(options)
+    # If --no-run option is false (or not provided)
+    if not options.noRun:
+        # Start the collector to collect everything
+        collector_obj = Collector().run()
+        log_special_message("Collector status is: \n" + json.dumps(collector_obj, sort_keys=True, indent=4), typ="debug")
 
-    # Start the collector to collect everything
-    collector_obj = Collector().run()
-    log_special_message("Collector status is: \n" + json.dumps(collector_obj, sort_keys=True, indent=4), typ="debug")
+        # Execute the command now
+        stdo, stde = Utilities().run_system_command(collector_obj.get('command'))
 
-    # Execute the command now
-    stdo, stde = Utilities().run_system_command(collector_obj.get('command'))
-
-    log.info(f"\n "
-             f"{'=-' * 60} \n"
-             f" Test has been executed. Please find the report file at: {config.framework['REPORT_FILE_PATH']}\n "
-             f"{'=-' * 60} \n\n")
+        log.info(f"\n "
+                 f"{'=-' * 60} \n"
+                 f" Test has been executed. Please find the report file at: {config.framework['REPORT_FILE_PATH']}\n "
+                 f"{'=-' * 60} \n\n")
 
 
 # ================================
 # Execute the script now
 # ================================ 
 if __name__ == "__main__":
-
-    # Check the binaries
-    Utilities().check_the_binaries()
 
     # Call the main with option parser
     main()
