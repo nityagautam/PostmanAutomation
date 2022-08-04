@@ -1,0 +1,44 @@
+# Explanation of the framework execution
+# ---------------------------------------
+
+Well, there are mainly 3 component of this automation framework
+1- Config
+2- Collector
+3- Utilities
+and eventually, all three are controlled and used by runner.py
+
+Now, the "Config" part is where we keep all the configuration related to
+the framework options and the collections/env/data options.
+that is why, this "Config" is also categorised in two parts:
+- core config => framework related config options
+- api config  => api related config options for newman execution
+
+And this "Collector" part is where all information of the "config"
+got utilised and bundled to process further. So basically this
+collector will talk to config and take all the required information,
+and it will pass back to the runner; because ultimately it is the runner
+who is going to consume it through utility;
+
+For the "Utilities" component, it contains all the core functionality
+including creating the system process for some command that the runner
+will be passing to it.
+
+
+And,
+in the last but not the least the "Runner" file (a python script),
+who is triggering everything;
+and this runner will be executed by some entity like: human, jenkins, etc.
+
+
+#-[Jenkins Setup Explanation]--------------------------------------
+For the jenkins, we need to setup few things:
+- Job type: Freestyle
+- Build action: Which include following thing
+    - [If any] Cleaning the old report
+    - Pulling the new code
+    - Running the framework
+    - Copying the generated reports [html, junit xml]
+- Post Build action: which include following thing
+    - Publish the HTML report to the Jenkins
+    - Integrate the JUnit xml report for jenkins graph (that you see for the job)
+
