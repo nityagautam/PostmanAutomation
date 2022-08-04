@@ -63,7 +63,7 @@ framework = {
     "CREATE_FILE_LOGS": True,
 
     "TEST_SUITES_TO_EXECUTE": ["samples"],
-    "API_EXECUTION_ENVIRONMENT": "default",
+    "API_EXECUTION_ENVIRONMENT": "test",
     "TEST_REPORTER_OPT_TO_USE": "REPORT_TYPE_FANCY_HTML_WITH_JUNIT",
 
     "REPORT_FILE_PATH": "./reports/",
