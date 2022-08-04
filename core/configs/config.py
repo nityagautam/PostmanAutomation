@@ -73,14 +73,14 @@ framework = {
     "REPORT_FILE_NAME_JSON": "SuiteReport_{placeholder}.json"
 }
 
-# Collection configurations 
+# Collection configurations [IN PROGRESS]
 # {Avaialble mode : single | combined | mixed}
 # -------------------------------------------
 collections_setup = {
     "mode": 'single'
 }
 
-# timeout in seconds
+# timeout in seconds  [IN PROGRESS]
 # Meaning:
 #   It will retry any failed collection,
 #   and for each try it will wait for provided seconds
@@ -90,7 +90,7 @@ TIMEOUT = 30
 RETRY = 3
 LOG_LEVEL = "INFO"
 
-# Error codes mapping
+# Error codes mapping [IN PROGRESS]
 # -------------------------------------------
 error_codes = {
     404: "NOT_FOUND! \nThe following file has been not found on the system\nFile: {}",
@@ -98,12 +98,3 @@ error_codes = {
     500: "ERROR_DURING_CMD_EXECUTION! \nThe following error occured for the command: {}\nError: {}",
 }
 
-# =====================
-# Problem statement: Lets say, each collection has the multiple api requests.
-#      and each might need to send an attachement/test_data.
-#
-#      Now, there are two ways we can achieve this
-#      1- Manage each individual collections per API
-#        \-- This will make structure easy, and easy to configure
-#      2- Bind the test-data using some environment variable
-#        \-- This would be a bit complex (in order to config later)
